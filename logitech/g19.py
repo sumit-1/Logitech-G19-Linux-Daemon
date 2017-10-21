@@ -63,7 +63,7 @@ class G19(object):
             for y in range(240):
                 r, g, b = access[x, y]
                 val = G19.rgb_to_uint16(r, g, b)
-                data.append(val >> 8)
+                data.append((val >> 8) & 0xff)
                 data.append(val & 0xff)
         return data
     
@@ -87,7 +87,7 @@ class G19(object):
             for y in range(240):
                 r, g, b = access[x, y]
                 val = G19.rgb_to_uint16(r, g, b)
-                data.append(val >> 8)
+                data.append((val >> 8) & 0xff)
                 data.append(val & 0xff)
         return data
 
@@ -125,7 +125,7 @@ class G19(object):
         # saved in little-endian, because USB is little-endian
         value = self.rgb_to_uint16(r, g, b)
         valueH = value & 0xff
-        valueL = value >> 8
+        valueL = (value >> 8) & 0xff
         frame = [valueL, valueH] * (320 * 240)
         self.send_frame(frame)
 
@@ -350,8 +350,8 @@ class G19(object):
             data.append(0)
         for x in range(320):
             for y in range(240):
-                data[2*(x*240+y)] = self.rgb_to_uint16(
-                    255 * x / 320, 255 * (320 - x) / 320, 255 * y / 240) >> 8
+                data[2*(x*240+y)] = (self.rgb_to_uint16(
+                    255 * x / 320, 255 * (320 - x) / 320, 255 * y / 240) >> 8) & 0xff
                 data[2*(x*240+y)+1] = self.rgb_to_uint16(
                     255 * x / 320, 255 * (320 - x) / 320, 255 * y / 240) & 0xff
         self.send_frame(data)
@@ -417,7 +417,7 @@ class G19UsbController(object):
         self.handleIfMM = self.__kbd_device.open()
         config = self.__lcd_device.configurations[0]
         iface0 = config.interfaces[0][0]
-        iface1 = config.interfaces[1][0]
+        iface1 = config.interfaces[0][1]
 
         try:
             self.handleIfMM.setConfiguration(1)
