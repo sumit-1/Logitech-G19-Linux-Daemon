@@ -1,10 +1,6 @@
-************IMPORTANT******************
-
-I stoped working on this project as I'm now involved in an even better project for the Logitech G19:
-
-http://g19linux.sourceforge.net/
-
-If you want to continue this deamon, feel free to do so, or just join us at sourceforge!
+I am working on it just to make it work with my keyboard.
+Using python here instead of other codes is primarily for fun and learning.
+I am not trying to make it high-end fully functional driver, rather something fun to play with.
 
 ***************************************
 
