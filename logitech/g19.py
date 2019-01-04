@@ -416,8 +416,9 @@ class G19UsbController(object):
         self.handleIf1 = self.__lcd_device.open()
         self.handleIfMM = self.__kbd_device.open()
         config = self.__lcd_device.configurations[0]
+        #print len(config.interfaces[0])
         iface0 = config.interfaces[0][0]
-        iface1 = config.interfaces[1][0]
+        iface1 = config.interfaces[0][1]
 
         try:
             self.handleIfMM.setConfiguration(1)
